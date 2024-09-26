@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LoxNet": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
