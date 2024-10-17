@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Tool": {
+      "commandName": "Project",
+      "commandLineArgs": "\"./\"",
+      "workingDirectory": "C:\\Users\\sebas"
+    }
+  }
+}

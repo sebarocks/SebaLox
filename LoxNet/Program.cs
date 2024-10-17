@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace LoxNet;
+﻿namespace LoxNet;
 
 public class Program
 {
