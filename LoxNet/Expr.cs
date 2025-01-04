@@ -43,7 +43,7 @@ public abstract class Expr
      }
     public class Literal : Expr
     {
-        public Literal(Object value)
+        public Literal(Object? value)
         {
             this.Value = value;
         }
@@ -53,7 +53,7 @@ public abstract class Expr
             return visitor.VisitLiteralExpr(this);
         }
         
-        public readonly Object Value;
+        public readonly Object? Value;
      }
     public class Unary : Expr
     {

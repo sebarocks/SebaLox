@@ -1,11 +1,10 @@
-﻿using LoxNet;
-using System.Text;
+﻿using System.Text;
 
-namespace Tool;
+namespace LoxNet;
 
 class AstPrinter : Expr.Visitor<string>
 {
-    string Print(Expr expr)
+    public string Print(Expr expr)
     {
         return expr.Accept(this);
     }
@@ -22,8 +21,7 @@ class AstPrinter : Expr.Visitor<string>
 
     public string VisitLiteralExpr(Expr.Literal expr)
     {
-        if (expr.Value == null) return "nil";
-        return expr.Value.ToString();
+        return expr.Value.ToString() ?? "nil";
     }
 
     public string VisitUnaryExpr(Expr.Unary expr)
@@ -34,7 +32,7 @@ class AstPrinter : Expr.Visitor<string>
 
     private string Parenthesize(string name, params Expr[] exprs)
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
 
         sb.Append('(').Append(name);
         foreach (Expr expr in exprs)
@@ -47,7 +45,7 @@ class AstPrinter : Expr.Visitor<string>
         return sb.ToString();
     }
 
-    public static void Printer(string[] args)
+    public static void ASTPrint(string[] args)
     {
         Expr expression = new Expr.Binary(
             new Expr.Unary(
