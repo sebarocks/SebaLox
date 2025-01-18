@@ -4,7 +4,10 @@ namespace LoxNet;
 
 public class Lox
 {
+    private static readonly Interpreter interpreter = new Interpreter();
+
     private static bool HadError = false;
+    private static bool HadRuntimeError = false;
 
     public static void RunPrompt()
     {
@@ -24,6 +27,7 @@ public class Lox
         string fileContent = Encoding.Default.GetString(bytes);
         Run(fileContent);
         if (HadError) Environment.Exit(65);
+        if (HadRuntimeError) Environment.Exit(70);
     }
 
     public static void Run(string source)
@@ -34,6 +38,8 @@ public class Lox
         Expr? expression = parser.Parse();
 
         if (HadError || expression is null) return;
+
+        interpreter.Interpret(expression);
 
         Console.WriteLine(new AstPrinter().Print(expression));
     }
@@ -59,10 +65,17 @@ public class Lox
         if(token.Type == TokenType.EOF)
         {
             Report(token.Line, " at end", message);
-        } else
+        } 
+        else
         {
             Report(token.Line, $" at '{token.Lexeme}'", message);
         }
+    }
+
+    public static void runtimeError(RuntimeError error)
+    {
+        Console.WriteLine($"{error.Message} [ line {error.Token.Line}]");
+        HadRuntimeError = true;
     }
 
     public static void Report(int line, string where, string message)
